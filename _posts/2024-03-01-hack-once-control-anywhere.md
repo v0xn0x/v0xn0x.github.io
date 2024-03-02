@@ -1,9 +1,14 @@
 ---
 title: Hack Once Control Anywhere
+author: v0xn0x
 date: 2024-03-01 16:00:00 -0300
 categories: [ESTUDO, C2]
 tags: [C2, SHELL REVERSO] # TAG names should always be lowercase
+img: "/img/202403021858.png"
+alt: "Command and Control"
 ---
+
+![H4ck3 0nc3 C0ntr0l 4nyw3er3](/img/202403021858.png)
 
 ## Motivação
 

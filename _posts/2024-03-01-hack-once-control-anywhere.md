@@ -55,7 +55,7 @@ E foi exatamente isso o que estava acontecendo, a AMSI estava identificando o me
 
 A seguir vou mostrar o código original e o código alterado e embora a diferença entre eles seja ridícula, ela é suficinte para enganar a sua assinatura maliciosa.
 
-### Código Original
+#### Código Original
 
 ```c
 #include "DigiKeyboard.h"
@@ -94,7 +94,7 @@ void loop() {
 }
 ```
 
-### Código Modificado
+#### Código Modificado
 
 ```c
 #include "DigiKeyboard.h"
@@ -132,7 +132,7 @@ void loop() {
 }
 ```
 
-### O Bypass
+#### O Bypass
 
 ```c
 # Original
@@ -148,7 +148,7 @@ Integrar o Telegram ao projeto foi, surpreendentemente, uma das etapas mais simp
 
 Para manter o foco deste artigo, presumirei que você já possui um ambiente configurado com Laravel 9, PHP 8.1 e Apache2 em uma máquina Linux (utilizei Ubuntu 22.04) com suporte a HTTPS e acesso externo. Portanto, não detalharei a instalação e configuração dessas tecnologias, focando diretamente na integração com o Telegram.
 
-### Criando um Bot no Telegram
+#### Criando um Bot no Telegram
 
 O primeiro passo para integrar o Telegram ao sistema C2 envolve a criação de um bot. Isso é feito através do BotFather no Telegram, que nada mais é do que um bot que cria bots. A busca por "BotFather" na barra de pesquisas do Telegram nos leva diretamente a ele. Após a criação do bot, um TOKEN é fornecido e é através dele que a integração acontecerá.
 
@@ -286,7 +286,7 @@ client_socket.close()
 server_socket.close()
 ```
 
-### Funcionamento do Código
+#### Funcionamento do Código
 
 **- Escuta de Porta:** Semelhante ao netcat, o script espera conexões na porta especificada, pronta para receber o shell reverso da máquina infectada.
 

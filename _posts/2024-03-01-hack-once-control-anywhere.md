@@ -304,7 +304,9 @@ Este script descreve um método eficaz de interação entre componentes do siste
 
 ## Et voilá
 
-O video a seguir demonstra o funcionamento do C2: [https://www.**youtube**.com/watch?v=**jX_kp1S9MMg**](https://www.youtube.com/watch?v=jX_kp1S9MMgj)
+O video a seguir demonstra o funcionamento do C2:
+
+- [https://www.**youtube**.com/watch?v=**jX_kp1S9MMg**](https://www.youtube.com/watch?v=jX_kp1S9MMgj)
 
 ## Referências
 

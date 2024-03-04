@@ -31,23 +31,23 @@ Embora totalmente funcional, este C2 é simplificado, visando propósitos educac
 
 ## Menos iniciativa e mais terminativa
 
-Quando nos propomos a fazer algo de diferente em nossa vida, sempre acontecerá alguma coisa que nos forçara a voltar para a mesmice. E quando isso acontece precisamos escolher entre desistir que é bem mais fácil (ou vai me dizer que é ruim voltar para a casa da mamãe?) e enfrentar essa tal “força opositora” e seguir em frente.
+Quando nos propomos a fazer algo de diferente em nossa vida, sempre acontecerá alguma coisa que nos forçara a voltar para a mesmice. E quando isso acontece precisamos escolher entre desistir que é bem mais fácil (ou vai me dizer que é difícil voltar para a casa da mamãe?) ou enfrentar essa tal “força opositora” e seguir em frente.
 
 Durante a execução desse projeto, tudo parecia estranhamente perfeito, eu estava no prazo proposto, hardwares e softwares em perfeita sintonia e só faltava concluir a escrita desse artigo, ou seja, muito resultado e pouco desafio.
 
-Até que um belo dia fui surpreendido por uma atualização do Windows que fez com que o código que permitiria o controle da máquina do alvo simplesmente parasse de funcionar.
+Até que um belo dia fui surpreendido por uma atualização do Windows na máquina que faria o papel do alvo e que fez com que o código que permitiria o controle dela simplesmente parasse de funcionar.
 
-Nesse mesmo dia procurei por ajuda, foram horas e horas de conversa com amigos, pesquisa na internet, incontáveis perguntas para o ChatGPT, mas nada de muito significativo aconteceu. Porém em um dos pedidos de ajuda, Leonardo comenta que poderia ser a AMSI que estava bloqueando meu script e que ele possuía um artigo em seu blog sobre isso, naquele momento eu não tinha ideia do que era AMSI então eu anotei o termo e depois fui pesquisar sobre isso.
+Nesse mesmo dia procurei por ajuda, foram horas e horas de conversa com amigos, pesquisa na internet, incontáveis perguntas para o ChatGPT, mas nada de muito significativo aconteceu. Porém em um dos pedidos de ajuda, Leonardo comenta que poderia ser a AMSI que estava bloqueando meu script e que ele possuía um artigo em seu blog sobre isso, naquele momento eu não tinha ideia do que era AMSI mas anotei o termo para depois pesquisar.
 
-Li e reli o seu artigo intitulado [“Bypass de processos específicos de AMSI”](https://h41stur.com/posts/bypass-net-amsi/), li e reli as referências do artigo até que encontrei um outro artigo que era uma referência da referência chamado ["Hunting for AMSI Bypasses"](https://blog.f-secure.com/hunting-for-amsi-bypasses/).
+No outro dia, li e reli o seu artigo intitulado [“Bypass de processos específicos de AMSI”](https://h41stur.com/posts/bypass-net-amsi/), li e reli as referências do artigo até que encontrei um outro artigo que era uma referência da referência chamado ["Hunting for AMSI Bypasses"](https://blog.f-secure.com/hunting-for-amsi-bypasses/).
 
-Nesse arquivo, Wee-Jing Chung explica de uma maneira muito simples o que é a AMSI, como ela funciona e como é incrivelmente simples conseguir o Bypass.
+Nesse artigo, Wee-Jing Chung explica de uma maneira muito simples o que é a AMSI, como ela funciona e como é incrivelmente simples conseguir o Bypass.
 
 #### Muito prazar, eu me chamo AMSI
 
 [AMSI (Antimalware Scan Interface)](https://learn.microsoft.com/en-us/windows/win32/amsi/how-amsi-helps) é uma API do Windows na qual aplicativos ou serviços (incluindo terceiros) são capazes de verificar o conteúdo de um script e determinar se ele é malicioso. Se uma assinatura no script for registrada pelo provedor de serviços antimalware AMSI (Windows Defender por padrão), ela será bloqueada.
 
-- De forma simplificada, a AMSI executa os seguintes passos quando um script é carregado no PowerShell:
+De forma simplificada, a AMSI executa os seguintes passos quando um script é carregado no PowerShell:
 
 - A DLL AMSI.DLL é carregada do disco para a memória.
 
@@ -62,14 +62,14 @@ O exemplo a seguir mostra a AMSI em ação ao tentarmos executar um script malic
 ![img-description](/img/202403021117.png)
 _AMSI em ação_
 
-Ao ver essa imagem tudo fez sentido, pois ao tentar executar o código responsável pelo controle da máquina infectada diretamente no PoweShell era exatamente essa mensagem que eu recebia, porém, por incrível que pareça nesse mesmo artigo, havia um tópico explicando como é incrivelmente fácil burlar a assinatura da AMSI e conseguir o Bypass.
+Ao ver essa imagem tudo fez sentido, pois ao tentar executar o código responsável pelo controle da máquina infectada diretamente no PoweShell era exatamente essa mensagem que eu recebia, porém, por incrível que pareça nesse mesmo artigo, havia um tópico explicando como é muito fácil burlar a assinatura da AMSI e conseguir o Bypass.
 
 Tudo o que um agente malicioso precisa fazer é alterar a carga útil, conforme mostrado abaixo.
 
 ![img-description](/img/202403021124.png)
 _AMSI passada para trás_
 
-Corri para o meu código e fiz as seguintes alterações:
+Quando eu vi a mágica acontecendo, não tive dúvidas, corri para o meu código e fiz as seguintes alterações:
 
 ```c
 # Original
@@ -81,7 +81,7 @@ DigiKeyboard.println(F("powershell -windowstyle hidden -command \"$client = N'ew
 
 Pronto, eu estava de volta ao jogo!
 
-Toda essa reviravolta se encaixa muito bem na personificação do termo hacker, todo dia os profissionais de cyber segurança são confrontados por tecnologias que não conhecem e precisam encarar essa jornada.
+Eu fui aconselhado a escrever esse tópico, pois ele ilustra muito bem o espírito do que é ser hacker que é frequentemente envolto em equívocos e conotações negativas, associado principalmente a indivíduos que invadem sistemas de computador ilegalmente, roubam dados ou causam danos digitais. No entanto, essa percepção simplista não captura a amplitude e a profundidade do verdadeiro significado de ser um hacker. Na essência, ser hacker é muito mais do que a imagem estereotipada do criminoso cibernético. É sobre paixão, curiosidade, inovação e um profundo desejo de entender como as coisas funcionam.
 
 ## Tecnologias utilizadas
 
@@ -93,13 +93,13 @@ A confluência de hardware, software e plataformas de comunicação é o que tor
 
 [**- VirtualBox com Windows 10 Pro:**](https://www.virtualbox.org/) Utilizamos uma máquina virtual Windows para simular ambientes de ataque e desenvolvimento de estratégias de C2 em um ambiente seguro.
 
+[**- Telegram:**](https://core.telegram.org/) A interface que permite ao hacker iniciar ataques de qualquer lugar, oferecendo uma plataforma segura e fácil de usar para o envio de comandos.
+
 [**- Laravel 9:**](https://laravel.com/) Integra as APIs do Telegram com o servidor Linux, um framework PHP conhecido por sua simplicidade e robustez.
 
-[**- Python 3:**](https://www.python.org/downloads/) Responsável por criar uma conexão semelhante ao Netcat, ouvindo uma porta específica na VPS Linux para receber o shell reverso e transmitir comandos para a máquina infectada.
+[**- Python 3:**](https://www.python.org/downloads/) Responsável por criar uma conexão semelhante ao [Netcat](https://nmap.org/ncat/), ouvindo uma porta específica na VPS Linux para receber o shell reverso e transmitir comandos para a máquina infectada.
 
 [**- VPS Linux:**](https://www.hostinger.com.br/servidor-vps) Hospeda as aplicações Laravel e Python, oferecendo um ambiente estável e seguro para o funcionamento do sistema C2.
-
-[**- Telegram:**](https://core.telegram.org/) A interface que permite ao hacker iniciar ataques de qualquer lugar, oferecendo uma plataforma segura e fácil de usar para o envio de comandos.
 
 ## Hardware Hacking
 
@@ -150,13 +150,13 @@ void loop() {
 
 ## Telegram
 
-Integrar o Telegram ao projeto foi, surpreendentemente, uma das etapas mais simples, graças ao pouco de experiência que eu tenho com Laravel e à descoberta da biblioteca [TelegramBot](https://github.com/TelegramBot/Api), que simplificou ainda mais o processo.
+Integrar o Telegram ao projeto foi, surpreendentemente, uma das etapas mais simples, graças a experiência que eu tenho com Laravel e à descoberta da biblioteca [TelegramBot](https://github.com/TelegramBot/Api), que simplificou ainda mais o processo.
 
 Para manter o foco deste artigo, presumirei que você já possui um ambiente configurado com Laravel 9, PHP 8.1 e Apache2 em uma máquina Linux (utilizei Ubuntu 22.04) com suporte a HTTPS e acesso externo. Portanto, não detalharei a instalação e configuração dessas tecnologias, focando diretamente na integração com o Telegram.
 
 #### Criando um Bot no Telegram
 
-O primeiro passo para integrar o Telegram ao sistema C2 envolve a criação de um bot. Isso é feito através do BotFather no Telegram, que nada mais é do que um bot que cria bots. A busca por "BotFather" na barra de pesquisas do Telegram nos leva diretamente a ele. Após a criação do bot, um TOKEN é fornecido e é através dele que a integração acontecerá.
+O primeiro passo para integrar o Telegram ao sistema C2 envolve a criação de um bot. Isso é feito através do BotFather no Telegram, que nada mais é do que um bot que cria bots da seguinte maneira:
 
 **- Acesso ao BotFather:** No Telegram, utilize a barra de pesquisa para localizar o BotFather. Ele é o bot oficial do Telegram para a criação e gerenciamento de outros bots.
 
@@ -167,7 +167,7 @@ O primeiro passo para integrar o Telegram ao sistema C2 envolve a criação de u
 ![img-description](/img/202403011845.png)
 _BotFather_
 
-Com o TOKEN do Telegram em mãos, desenvolvi o seguinte script PHP para integrar o bot ao nosso sistema C2. Este código é responsável por configurar o webhook do Telegram e processar as mensagens recebidas, seguindo a lógica de controle de acesso e execução de comandos.
+Com o TOKEN do Telegram em mãos, desenvolvi um script PHP para integrar o bot ao nosso sistema C2. Este código é responsável por configurar o webhook do Telegram e processar as mensagens recebidas, seguindo a lógica de controle de acesso e execução de comandos.
 
 ```php
 <?php
@@ -304,7 +304,34 @@ Este script descreve um método eficaz de interação entre componentes do siste
 
 ## Et voilá
 
-O video a seguir demonstra o funcionamento do C2:
+Agora, vamos integrar as peças e simular um ataque controlado. Siga os passos abaixo para configurar e executar sua simulação:
+
+**Configuração Inicial no arquivo .env do Laravel:**
+
+Para iniciar, você precisa configurar algumas variáveis essenciais no arquivo .env do seu projeto Laravel. Essas variáveis são cruciais para estabelecer a comunicação entre o seu bot do Telegram e a aplicação. Configure as seguintes variáveis:
+
+- TELEGRAM_TOKEN: Token do Telegram obtido durante a criação do seu bot.
+- TELEGRAM_WEBHOOK: URL do Webhook associada à sua aplicação.
+- TELEGRAM_FROM_ID: ID da conversa que foi iniciada entre o seu usuário e o bot.
+- TELEGRAM_USER: Nome do usuário autorizado a enviar comandos para a máquina alvo.
+
+**Configuração do Webhook via Navegador:**
+
+É essencial acessar a rota de configuração (/config) pelo menos uma vez através do seu navegador. Isso permite configurar o Webhook no Telegram de forma adequada, garantindo que os comandos enviados para o bot seja recebidos na aplicação.
+
+**Iniciando a Escuta da Porta com Código Python:**
+
+Execute o script Python para iniciar a escuta na porta especificada. Este passo é crucial para garantir que os comandos enviados do Telegram sejam capturados e enviados para a máquina alvo.
+
+**Conexão da Digispark:**
+
+Conecte o dispositivo Digispark na porta USB da máquina alvo. Aguarde até que a luz vermelha indique que o dispositivo concluiu a infecção.
+
+**Envio de Comandos via Telegram:**
+
+Utilize o seu bot do Telegram para enviar comandos PowerShell. Exemplos de comandos incluem: `notepad`, `calc`, `Restart-Computer`. Essa etapa permite que você teste a eficácia da simulação e a resposta da máquina aos comandos.
+
+Para uma demonstração visual do processo de comando e controle (C2) utilizando as instruções acima, assista ao vídeo anexado.
 
 - [https://www.**youtube**.com/watch?v=**jX_kp1S9MMg**](https://www.youtube.com/watch?v=jX_kp1S9MMgj)
 

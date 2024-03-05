@@ -43,7 +43,7 @@ No outro dia, li e reli o seu artigo intitulado [“Bypass de processos específ
 
 Nesse artigo, Wee-Jing Chung explica de uma maneira muito simples o que é a AMSI, como ela funciona e como é incrivelmente simples conseguir o Bypass.
 
-#### Muito prazar, eu me chamo AMSI
+#### Muito prazer, eu me chamo AMSI
 
 [AMSI (Antimalware Scan Interface)](https://learn.microsoft.com/en-us/windows/win32/amsi/how-amsi-helps) é uma API do Windows na qual aplicativos ou serviços (incluindo terceiros) são capazes de verificar o conteúdo de um script e determinar se ele é malicioso. Se uma assinatura no script for registrada pelo provedor de serviços antimalware AMSI (Windows Defender por padrão), ela será bloqueada.
 

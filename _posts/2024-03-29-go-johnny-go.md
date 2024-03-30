@@ -186,9 +186,9 @@ As respostas não serão fornecidadas 😅😅😅, mas podemos debater no nosso
 
 1. Crie um novo projeto em Go chamado `hello_world` e execute um programa que imprima `Hello, World!` no terminal.
 
-2. Modifique o programa `hello_world` de tal forma que ao executá-lo ele solicite que um nome seja digitado e então ele exiba a mensagem "Hello, <nome_digitado>".
+2. Modifique o programa `hello_world` de tal forma que ao executá-lo ele solicite que um nome seja digitado e então ele exiba a mensagem `Hello, \<nome_digitado\>`, por exemplo, `Hello, João!`.
 
-3. Utilize o pacote `strings` para converter o nome digitado para maiúsculo antes de cumprimentá-lo.
+3. Utilize o pacote `strings` para converter o nome digitado para maiúsculo antes de cumprimentá-lo, por exemplo, `Olá, JÚLIA!`
 
 ## Referências
 

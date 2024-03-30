@@ -14,7 +14,7 @@ image:
 
 ## Introdução
 
-Este post tem como objetivo registrar minha jornada de aprendizado em GoLang, participando de um grupo de estudos dirigido e liderado por [Leonardo Toledo](https://www.linkedin.com/in/leo-toledo/). Este grupo não só me oferece uma estrutura de estudo organizada, mas também um ambiente colaborativo para aprofundar meu conhecimento na linguagem. Todo o material, incluindo aulas e exercícios, está disponível no repositório do [Github](https://github.com/h41stur/gogogo).
+Este post tem como objetivo registrar minha jornada de aprendizado em GoLang (ou simplismente Go) através de um grupo de estudos que estou participandl na qual é liderado por [Leonardo Toledo](https://www.linkedin.com/in/leo-toledo/). Este grupo não só me oferece uma estrutura de estudo organizada, mas também um ambiente colaborativo para aprofundar meu conhecimento na linguagem. Todo o material, incluindo aulas e exercícios, está disponível no repositório do [Github](https://github.com/h41stur/gogogo).
 
 Através deste registro, pretendo não apenas solidificar o conhecimento adquirido, mas também compartilhar insights e progressos com quem possa estar na mesma jornada ou considerando embarcar nela. Ao documentar cada aula e desenvolver exercícios propostos, busco uma compreensão mais profunda da linguagem, facilitando assim a absorção e aplicação do conhecimento adquirido.
 
@@ -22,7 +22,9 @@ Através deste registro, pretendo não apenas solidificar o conhecimento adquiri
 
 ### Como iniciar um projeto em Go
 
-Tudo começa com a fundação. No mundo Go, isso significa executar um comando que, embora simples, é poderoso: `go mod init`. Este é o ponto de partida, o grito de guerra para qualquer projeto. Ao digitá-lo seguido pelo nome do nosso módulo, estamos não apenas criando um novo espaço para nosso código, mas também estamos nos preparando para uma gestão de dependências eficaz e moderna. O arquivo **go.mod** é criado, e com ele, a promessa de um projeto organizado e pronto para crescer.
+Tudo começa com a fundação. No mundo Go, isso significa executar um comando que, embora simples, é poderoso: `go mod init`. Este é o ponto de partida, o grito de guerra para qualquer projeto. Ao digitá-lo seguido pelo nome do nosso módulo, estamos não apenas criando um novo espaço para nosso código, mas também estamos nos preparando para uma gestão de dependências eficaz e moderna. O arquivo `go.mod` é criado, e com ele, a promessa de um projeto organizado e pronto para crescer.
+
+- Os comandos a seguir demonstram a criação dos diretórios do nosso primeiro programa, bem com a criação do arquivo responsável pelo código fonte e a inicialização do projeto.
 
 ```shell
 cd ~/Documents/
@@ -42,6 +44,8 @@ go mod init program.go
 
 Com o terreno preparado, é hora de construir. A estrutura básica de um programa Go é um convite à clareza e à eficiência. Cada arquivo começa declarando seu pacote, e para um programa executável, `package main` é a porta de entrada. Dentro deste pacote, a função `main()` se destaca como o coração do nosso projeto, o ponto inicial de toda a execução.
 
+- Edite o arquivo `program.go` (recomendo o [Visual Studio Code](https://code.visualstudio.com/)) e adicione o código a seguir.
+
 ```go
 // Adicione esse código ao arquivo program.go
 package main
@@ -53,9 +57,9 @@ func main() {
 }
 ```
 
-Este snippet é o "Olá, Mundo!" no Go. É aqui que percebemos a sua simplicidade e poder. A função `fmt.Println` nos permite imprimir mensagens na tela, uma demonstração da utilização de pacotes para adicionar funcionalidades ao nosso código.
+Este snippet é o `Olá, Mundo!` no Go. É aqui que percebemos a sua simplicidade e poder. A função `fmt.Println` nos permite imprimir mensagens na tela, uma demonstração da utilização de pacotes para adicionar funcionalidades ao nosso código.
 
-Para executar o nosso primeiro programa, execute o comando `go run .` no terminal
+- Para executar o nosso primeiro programa, execute o comando `go run .` no terminal
 
 ```shell
 cd ~/Documents/Go/aula-01
@@ -69,7 +73,7 @@ _go run ._
 
 Os pacotes em Go são ferramentas essenciais, bibliotecas que nos permitem estender a funcionalidade de nossos programas. Desde operações de entrada/saída básicas, manipulação de strings até a construção de aplicações web complexas, os pacotes têm um papel fundamental. Importá-los é simples, mas carrega consigo o peso da responsabilidade: cada pacote adicionado é uma nova dependência, um novo elo em nosso projeto.
 
-Importar um pacote é tão fácil quanto adicionar uma linha import no topo do arquivo. A linguagem Go incentiva uma gestão cuidadosa dessas importações, garantindo que cada uma seja justificada e utilizada. Através do comando go get, podemos adicionar novas dependências ao nosso projeto, que são prontamente refletidas em nosso arquivo go.mod, mantendo tudo organizado e acessível.
+Importar um pacote é tão fácil quanto adicionar uma linha import no topo do arquivo. A linguagem Go incentiva uma gestão cuidadosa dessas importações, garantindo que cada uma seja justificada e utilizada. Através do comando `go get`, podemos adicionar novas dependências ao nosso projeto, que são prontamente refletidas em nosso arquivo go.mod, mantendo tudo organizado e acessível.
 
 #### Criando pacotes
 
@@ -77,7 +81,9 @@ Em Go, criar seu próprio pacote é um passo excitante para modularizar seu cód
 
 Exemplo:
 
-Imagine que queremos criar um pacote chamado saudacoes para agrupar funções relacionadas a cumprimentos. Primeiro, criamos o diretório saudacoes no nosso projeto, e dentro dele, um arquivo chamado saudacoes.go:
+Imagine que queremos criar um pacote chamado saudacoes para agrupar funções relacionadas a cumprimentos. Primeiro, criamos o diretório saudacoes no nosso projeto, e dentro dele, um arquivo chamado `saudacoes.go`:
+
+- Comandos para a criação do diretório do pacote e o primeiro arquivo desse pacote.
 
 ```shell
 cd ~/Documents/Go/aula-01
@@ -87,6 +93,8 @@ cd saudacoes
 
 touch saudacoes.go
 ```
+
+- Edite o arquivo `saudacoes/saudacoes.go` e adicione o código a seguir.
 
 ```go
 // saudacoes/saudacoes.go
@@ -106,11 +114,11 @@ Para utilizar este pacote em nosso programa principal, importamos o caminho comp
 package main
 
 import (
-    "meuprojeto/saudacoes"
+    "program.go/saudacoes"
 )
 
 func main() {
-    saudacoes.Saudar("Mundo")
+    saudacoes.Saudar("Chuck Berry")
 }
 ```
 
@@ -119,11 +127,13 @@ _package saudacoes_
 
 #### Utilizando pacotes externos
 
-Go facilita a incorporação de pacotes externos, ampliando as possibilidades do que podemos construir. Para adicionar um pacote externo, usamos o comando go get seguido pelo caminho do pacote.
+Go facilita a incorporação de pacotes externos, ampliando as possibilidades do que podemos construir. Para adicionar um pacote externo, usamos o comando `go get` seguido pelo caminho do pacote.
 
 Exemplo:
 
-Vamos usar o popular pacote gorilla/mux, um pacote para roteamento de URL em aplicações web:
+Vamos usar o popular pacote [`gorilla/mux`](https://pkg.go.dev/github.com/gorilla/mux@v1.8.1), um pacote para roteamento de URL em aplicações web:
+
+- Execute o comando no terminal dentro da pasta do projeto:
 
 ```shell
 go get -u github.com/gorilla/mux
@@ -160,13 +170,25 @@ _Mensagem exibida no nacegador_
 
 Com o tempo, nosso projeto pode acumular dependências que não são mais usadas. Go torna fácil manter seu projeto limpo com o comando go mod tidy. Este comando verifica seu código para encontrar todas as dependências que são realmente utilizadas e remove qualquer coisa que não seja necessária do arquivo go.mod.
 
-Comando:
+- Execute o comando no terminal dentro da pasta do projeto:
 
 ```shell
 go mod tidy
 ```
 
 Executar este comando regularmente ajuda a manter o projeto limpo e eficiente, garantindo que apenas as dependências necessárias sejam mantidas.x'
+
+## Exercícios
+
+Os exercícios propostos a seguir são baseados nos conceitos abordados durante nossa última aula, porém introduzem um nível adicional de desafio. O objetivo é aguçar sua curiosidade e fortalecer sua capacidade de solucionar problemas complexos, habilidades essenciais no cotidiano de um desenvolvedor.
+
+As respostas não serão fornecidadas 😅😅😅, mas podemos debater no nosso grupo de estudos.
+
+1. Crie um novo projeto em Go chamado `hello_world` e execute um programa que imprima `Hello, World!` no terminal.
+
+2. Modifique o programa `hello_world` de tal forma que ao executá-lo ele solicite que um nome seja digitado e então ele exiba a mensagem "Hello, <nome_digitado>".
+
+3. Utilize o pacote `strings` para converter o nome digitado para maiúsculo antes de cumprimentá-lo.
 
 ## Referências
 

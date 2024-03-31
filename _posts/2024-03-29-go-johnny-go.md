@@ -79,7 +79,7 @@ Importar um pacote é tão fácil quanto adicionar uma linha import no topo do a
 
 Em Go, criar seu próprio pacote é um passo excitante para modularizar seu código, promovendo reutilização e clareza. Para criar um pacote, comece definindo um novo diretório dentro do seu projeto. O nome deste diretório será o nome do seu pacote. Dentro deste diretório, cada arquivo .go deve iniciar declarando este pacote através da palavra-chave package.
 
-Exemplo:
+**Exemplos:**
 
 Imagine que queremos criar um pacote chamado saudacoes para agrupar funções relacionadas a cumprimentos. Primeiro, criamos o diretório saudacoes no nosso projeto, e dentro dele, um arquivo chamado `saudacoes.go`:
 
@@ -129,7 +129,7 @@ _package saudacoes_
 
 Go facilita a incorporação de pacotes externos, ampliando as possibilidades do que podemos construir. Para adicionar um pacote externo, usamos o comando `go get` seguido pelo caminho do pacote.
 
-Exemplo:
+**Exemplos:**
 
 Vamos usar o popular pacote [`gorilla/mux`](https://pkg.go.dev/github.com/gorilla/mux@v1.8.1), um pacote para roteamento de URL em aplicações web:
 
@@ -189,6 +189,279 @@ As respostas não serão fornecidadas 😅😅😅, mas podemos debater no nosso
 2. Modifique o programa `hello_world` de tal forma que ao executá-lo ele solicite que um nome seja digitado e então ele exiba a mensagem `Hello, \<nome_digitado\>`, por exemplo, `Hello, João!`.
 
 3. Utilize o pacote `strings` para converter o nome digitado para maiúsculo antes de cumprimentá-lo, por exemplo, `Olá, JÚLIA!`
+
+## Aula 2: Mergulhando em Go
+
+No dia 28-mar-2024 as 22:10 tivemos a nossa segunda aula de Go. Vou guiá-lo através de cada tópico com exemplos de código para que vocês (principalmente eu) possa seguir e fixar facilmente os conceitos.
+
+### Variáveis em Go
+
+Variáveis (em qualquer linguagem de programação) são espaços na memória onde você pode armazenar dados. Em Go, você pode declarar uma variável de várias maneiras:
+
+**Declaração Simples**
+
+Esta talvez seja a minha declaração favorita!
+
+```go
+var nome string = "Go"
+```
+
+**Declaração Múltipla**
+
+```go
+var x, y int = 5, 10
+```
+
+**Inicialização Durante a Declaração**
+
+Eu usaria com cuidado essa tipo de declaração, pois não fica muito claro que é o seu tipo
+
+```go
+idade := 25 // Tipo inferido pelo compilador
+```
+
+**Auto Inferência e Constantes**
+
+Go é inteligente o suficiente para inferir o tipo de dados baseado no valor atribuído, porém eu teria o mesmo cuidado da `Inicialização Durante a Declaração`
+
+```go
+const PI = 3.14
+```
+
+Aqui é importante destacar que foi declarada uma constante e que ao contrário de uma variável, uma vez que o seu valor é atribuido ele não mudará, por isso o nome `constante`.
+
+### Tipos de Dados
+
+Go é um linguagem fortemente tipada, ou seja, ela exige que o tipo de dados de uma variável seja definido explicitamente e seja rigorosamente mantido ao longo do código, sem permitir alterações implícitas ou automáticas de tipo. Isso significa que, se uma variável é declarada como sendo de um certo tipo de dados, qualquer operação que envolva essa variável deve ser compatível com seu tipo, e tentativas de usar essa variável com um tipo diferente de dados resultarão em erros em tempo de compilação ou execução.
+
+Além disso, a linguagem Go suporta vários tipos de dados, incluindo inteiros (int, uint, int64, etc.), numéricos não inteiros (como float64 e complex128), strings, e muito mais.
+
+**Strings**
+
+```go
+var saudacao string = "Olá, Go!"
+```
+
+**Array Slices e Map**
+
+Slices são tipos de dados dinâmicos que podem crescer e encolher.
+
+```go
+slice := []int{1, 2, 3}
+```
+
+Map é uma coleção de pares chave-valor.
+
+```go
+mapa := map[string]int{"um": 1, "dois": 2}
+```
+
+**Structs e Pointers**
+
+Structs permitem criar tipos de dados customizados.
+
+```go
+type Pessoa struct {
+    Nome string
+    Idade int
+}
+```
+
+Pointers armazenam o endereço de memória de variáveis.
+
+```go
+var x int = 1
+var p *int = &x
+```
+
+### Funções
+
+Em Go, funções são cidadãs de primeira classe, permitindo que sejam passadas como argumentos e usadas como valores.
+
+Declaração de Funções
+
+```go
+func soma(a int, b int) int {
+    return a + b
+}
+```
+
+**Funções Anônimas e Variadicas**
+
+Funções anônimas, também conhecidas como funções lambda ou closures, são uma funcionalidade poderosa em muitas linguagens de programação, incluindo Go. Elas permitem que você declare uma função sem dar um nome a ela, possibilitando a definição de funções inline ou a passagem de funções como argumentos para outras funções. As funções anônimas são particularmente úteis para operações de curta duração que são utilizadas apenas em um contexto específico, simplificando o código ao evitar a necessidade de declarar uma função nomeada separada.
+
+Para que servem:
+
+- **Callbacks**: Passar uma função como argumento para outra função. Isso é útil em padrões de projeto como observadores ou ao trabalhar com goroutines e canais para processamento assíncrono.
+
+- **Encapsulamento**: Criar closures que podem capturar e manter estado local. Uma função anônima pode acessar variáveis do escopo em que foi definida, permitindo técnicas de encapsulamento e preservação de estado.
+
+- **Operações** de coleção: Aplicar operações em elementos de coleções, como mapas e slices, por exemplo, filtragem, redução e mapeamento, sem a necessidade de criar funções nomeadas explícitas para cada operação.
+
+**Exemplos:**
+
+- **Exemplo 1**: Usando uma função anônima para um callback
+
+Imagine que você quer executar uma função que realiza uma tarefa e, em seguida, chama uma função de callback para sinalizar a conclusão da tarefa:
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	processarTarefa(func() {
+		fmt.Println("Tarefa completada!")
+	})
+}
+
+func processarTarefa(callback func()) {
+	fmt.Println("Processando tarefa...")
+	time.Sleep(2 * time.Second) // Simula uma tarefa sendo processada
+	callback()                  // Chama a função de callback
+}
+```
+
+Neste exemplo, a função processarTarefa recebe uma função anônima como argumento, que é chamada de callback após a simulação da tarefa.
+
+- **Exemplo 2**: Usando funções anônimas para operações com slices
+
+Você pode usar uma função anônima dentro de um loop ou como parte de operações em slices:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	numeros := []int{1, 2, 3, 4, 5}
+	resultado := make([]int, 0)
+
+	// Usando função anônima para filtrar números
+	filtrar := func(n int) bool {
+		return n%2 == 0 // Condição para filtrar números pares
+	}
+
+	for _, numero := range numeros {
+		if filtrar(numero) {
+			resultado = append(resultado, numero)
+		}
+	}
+
+	fmt.Println("Números pares:", resultado)
+}
+```
+
+Aqui, uma função anônima filtrar é usada para determinar se um número em um slice é par. A função anônima permite encapsular a lógica de filtragem diretamente no contexto onde ela é necessária, sem a necessidade de declarar uma função separada.
+
+As funções anônimas são uma ferramenta versátil em Go, permitindo escrever código mais conciso, modular e expressivo, especialmente em cenários que envolvem callbacks, closures, e operações sobre coleções.
+
+Já as funções variádicas em Go são aquelas que podem receber um número variável de argumentos do mesmo tipo. Elas são particularmente úteis quando você precisa de uma função que pode ser chamada com diferentes números de argumentos, oferecendo flexibilidade na forma como as funções são invocadas. Isso é conseguido usando ... antes do tipo de parâmetro na definição da função, indicando que a função pode aceitar qualquer número de argumentos desse tipo.
+
+Para que servem:
+
+- **Flexibilidade**: Permitem que você escreva funções que podem ser chamadas com diferentes quantidades de argumentos, tornando seu código mais flexível e reutilizável.
+
+- **Conveniência**: São úteis para operações que podem ser aplicadas a um conjunto variável de elementos, como somar números, concatenar strings, ou aplicar uma função a uma lista de valores.
+
+- **Simplificação de APIs**: Reduzem a necessidade de definir múltiplas funções para lidar com diferentes quantidades de argumentos, simplificando a API de uma biblioteca ou aplicação.
+
+**Exemplos:**
+
+- **Exemplo 1**: Uma função variádica para somar números.
+
+```go
+package main
+
+import "fmt"
+
+// soma aceita uma quantidade variável de argumentos int e retorna a soma deles
+func soma(numeros ...int) int {
+    total := 0
+    for _, numero := range numeros {
+        total += numero
+    }
+    return total
+}
+
+func main() {
+    fmt.Println(soma(1, 2))          // 3
+    fmt.Println(soma(1, 2, 3, 4, 5)) // 15
+}
+```
+
+Este exemplo demonstra uma função variádica `soma`, que pode ser chamada com qualquer número de argumentos inteiros. A função itera sobre os argumentos e calcula a soma total.
+
+- **Exemplo 2**: Aplicando uma função a uma lista de strings
+
+```go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+// processarStrings aplica uma função de transformação a uma lista de strings
+func processarStrings(transformar func(string) string, strings ...string) []string {
+    resultados := make([]string, len(strings))
+    for i, str := range strings {
+        resultados[i] = transformar(str)
+    }
+    return resultados
+}
+
+func main() {
+    // Chamando processarStrings com uma função anônima que converte strings para maiúsculas
+    fmt.Println(processarStrings(strings.ToUpper, "primeiro", "segundo"))
+    // Output: [PRIMEIRO SEGUNDO]
+
+    // Chamando com uma função que repete as strings
+    fmt.Println(processarStrings(func(s string) string {
+        return s + s
+    }, "eco", "test"))
+    // Output: [ecoeco testtest]
+}
+```
+
+Neste exemplo, processarStrings é uma função variádica que aplica uma função de transformação especificada a cada string em um slice de strings. A capacidade de passar qualquer número de strings como argumentos torna a função extremamente versátil.
+
+Funções variádicas são uma ferramenta poderosa em Go, permitindo que você escreva códigos mais genéricos e reutilizáveis que podem lidar com um número variável de argumentos de forma elegante. Elas são especialmente úteis em funções que realizam operações de agregação ou aplicam uma operação a uma coleção de elementos.
+
+### Funções com mais de um retorno
+
+Funções com mais de um retorno em Go são uma característica poderosa da linguagem, permitindo que uma função retorne múltiplos valores simultaneamente. Esta capacidade é útil em uma variedade de situações e traz flexibilidade significativa ao design de funções e à gestão de dados retornados.
+
+**Para que servem:**
+
+- **Retorno de resultado e erro:** É um padrão comum em Go retornar o resultado de uma operação junto com um valor de erro que indica se a operação foi bem-sucedida. Isso permite um tratamento de erro robusto e claro.
+
+- **Retorno de múltiplos valores relacionados:** Em algumas situações, pode fazer sentido que uma função calcule e retorne múltiplos valores que estão logicamente relacionados, como coordenadas (x, y) ou um valor dividido e seu resto.
+
+- **Desempacotamento de estruturas de dados:** Uma função pode desempacotar elementos de uma estrutura de dados complexa e retorná-los como valores individuais, facilitando o acesso a esses elementos.
+
+**Utilidade**
+
+- **Clareza e segurança no tratamento de erros:** Ao retornar um valor de erro junto com o resultado de uma função, o código que chama essa função pode imediatamente verificar se ocorreu um erro e lidar com essa situação de forma adequada.
+
+- **Simplificação do código:** Reduz a necessidade de usar estruturas de dados complexas ou ponteiros para retornar múltiplos valores, tornando o código mais legível e fácil de manter.
+
+- **Melhoria na expressividade do código:** Facilita a escrita de funções que naturalmente produzem ou operam com múltiplos valores, tornando o código mais intuitivo e alinhado com a lógica do domínio do problema.
+
+### Exercícios de Fixação
+
+1. Crie uma variável idade do tipo int e atribua seu próprio valor.
+
+2. Escreva uma função que aceite duas strings e retorne a combinação delas.
+
+3. Declare um Map que mapeia nomes de frutas a suas cores e acesse um valor.
+
+4. Crie um struct Carro com os campos Marca e Ano, instancie-o e printe seus valores.
+
+5. Escreva uma função variádica que calcule a média de um slice de float64 e retorne dois valores: a média e um booleano indicando sucesso.
 
 ## Referências
 

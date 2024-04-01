@@ -214,7 +214,7 @@ var x, y int = 5, 10
 
 **Inicialização Durante a Declaração**
 
-Eu usaria com cuidado essa tipo de declaração, pois não fica muito claro que é o seu tipo
+Eu usaria com cuidado essa tipo de declaração, pois não fica muito claro qual é o seu tipo
 
 ```go
 idade := 25 // Tipo inferido pelo compilador
@@ -292,11 +292,11 @@ Funções anônimas, também conhecidas como funções lambda ou closures, são 
 
 Para que servem:
 
-- **Callbacks**: Passar uma função como argumento para outra função. Isso é útil em padrões de projeto como observadores ou ao trabalhar com goroutines e canais para processamento assíncrono.
+- **Callbacks:** Passar uma função como argumento para outra função. Isso é útil em padrões de projeto como observadores ou ao trabalhar com [goroutines](https://go.dev/tour/concurrency/1) e canais para processamento assíncrono.
 
-- **Encapsulamento**: Criar closures que podem capturar e manter estado local. Uma função anônima pode acessar variáveis do escopo em que foi definida, permitindo técnicas de encapsulamento e preservação de estado.
+- **Encapsulamento:** Criar closures que podem capturar e manter estado local. Uma função anônima pode acessar variáveis do escopo em que foi definida, permitindo técnicas de encapsulamento e preservação de estado.
 
-- **Operações** de coleção: Aplicar operações em elementos de coleções, como mapas e slices, por exemplo, filtragem, redução e mapeamento, sem a necessidade de criar funções nomeadas explícitas para cada operação.
+- **Operações de coleção:** Aplicar operações em elementos de coleções, como mapas e slices, por exemplo, filtragem, redução e mapeamento, sem a necessidade de criar funções nomeadas explícitas para cada operação.
 
 **Exemplos:**
 
@@ -355,11 +355,11 @@ func main() {
 }
 ```
 
-Aqui, uma função anônima filtrar é usada para determinar se um número em um slice é par. A função anônima permite encapsular a lógica de filtragem diretamente no contexto onde ela é necessária, sem a necessidade de declarar uma função separada.
+Aqui, a função anônima `filtrar` é usada para determinar se um número em um slice é par. A função anônima permite encapsular a lógica de filtragem diretamente no contexto onde ela é necessária, sem a necessidade de declarar uma função separada.
 
 As funções anônimas são uma ferramenta versátil em Go, permitindo escrever código mais conciso, modular e expressivo, especialmente em cenários que envolvem callbacks, closures, e operações sobre coleções.
 
-Já as funções variádicas em Go são aquelas que podem receber um número variável de argumentos do mesmo tipo. Elas são particularmente úteis quando você precisa de uma função que pode ser chamada com diferentes números de argumentos, oferecendo flexibilidade na forma como as funções são invocadas. Isso é conseguido usando ... antes do tipo de parâmetro na definição da função, indicando que a função pode aceitar qualquer número de argumentos desse tipo.
+Já as funções variádicas em Go são aquelas que podem receber um número variável de argumentos do mesmo tipo. Elas são particularmente úteis quando você precisa de uma função que pode ser chamada com diferentes números de argumentos, oferecendo flexibilidade na forma como as funções são invocadas. Isso é conseguido usando `...` antes do tipo de parâmetro na definição da função, indicando que a função pode aceitar qualquer número de argumentos desse tipo.
 
 Para que servem:
 
@@ -451,11 +451,65 @@ Funções com mais de um retorno em Go são uma característica poderosa da ling
 
 - **Melhoria na expressividade do código:** Facilita a escrita de funções que naturalmente produzem ou operam com múltiplos valores, tornando o código mais intuitivo e alinhado com a lógica do domínio do problema.
 
+**Exemplos:**
+
+- **Exemplo 1:** Retorno de resultado e erro
+
+Uma função que tenta abrir um arquivo pode retornar um ponteiro para o arquivo e um valor de erro que indica se a abertura foi bem-sucedida:
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func abrirArquivo(nome string) (*os.File, error) {
+    f, err := os.Open(nome)
+    if err != nil {
+        return nil, err
+    }
+    return f, nil
+}
+
+func main() {
+    arquivo, err := abrirArquivo("exemplo.txt")
+    if err != nil {
+        fmt.Println("Erro ao abrir o arquivo:", err)
+        return
+    }
+    defer arquivo.Close()
+    // Operações com o arquivo...
+}
+```
+
+- **Exemplo 2:** Retorno de múltiplos valores relacionados
+
+Uma função que divide dois números e retorna o quociente e o resto:
+
+```go
+package main
+
+import "fmt"
+
+func dividir(dividendo, divisor int) (quociente, resto int) {
+    quociente = dividendo / divisor
+    resto = dividendo % divisor
+    return
+}
+
+func main() {
+    q, r := dividir(10, 3)
+    fmt.Printf("Quociente: %d, Resto: %d\n", q, r)
+}
+```
+
 ### Exercícios de Fixação
 
-1. Crie uma variável idade do tipo int e atribua seu próprio valor.
+1. Declare uma variável chamada idade do tipo int e inicialize-a com um valor inteiro que represente sua idade real ou uma idade fictícia de sua escolha.
 
-2. Escreva uma função que aceite duas strings e retorne a combinação delas.
+2. Desenvolva uma função que receba duas strings como argumentos. A função deve concatenar essas duas strings, combinando-as em uma única string, e então retornar o resultado dessa combinação.
 
 3. Declare um Map que mapeia nomes de frutas a suas cores e acesse um valor.
 

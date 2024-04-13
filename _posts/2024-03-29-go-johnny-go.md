@@ -517,7 +517,305 @@ func main() {
 
 5. Escreva uma função variádica que calcule a média de um slice de float64 e retorne dois valores: a média e um booleano indicando sucesso.
 
+## Aula 3: Rock 'N' Roll
+
+### Operadores Aritméticos
+
+Em Go, os operadores aritméticos são utilizados para realizar operações matemáticas básicas. Eles incluem
+
+- Adição (+): Adiciona dois operandos
+- Subtração (-): Subtrai o segundo operando do primeiro
+- Multiplicação (\*): Multiplica ambos operandos
+- Divisão (/): Divide o numerador pelo denominador
+- Módulo (%): Retorna o resto da divisão
+- Incremento (++): Aumenta o valor do operando em 1
+- Decremento (--): Diminui o valor do operando em 1
+
+**Exemplo prático:** Calcular o total de uma fatura, aplicando descontos e adicionando impostos, é uma operação comum em sistemas financeiros.
+
+```go
+package main
+
+import "fmt"
+
+func calculateInvoice(subtotal, discount, taxRate float64) float64 {
+	discountAmount := subtotal * (discount / 100)              // Calcula o valor do desconto
+	taxAmount := (subtotal - discountAmount) * (taxRate / 100) // Calcula o valor do imposto
+	total := subtotal - discountAmount + taxAmount             // Calcula o total final
+	return total
+}
+
+func main() {
+	fmt.Println(calculateInvoice(1000, 10, 1))
+}
+```
+
+### Operadores Relacionais
+
+Os operadores relacionais são usados para comparar dois valores, retornando um valor booleano (true ou false). Os operadores incluem:
+
+- == (igual a)
+- != (diferente de)
+- < (menor que)
+- \> (maior que)
+- <= (menor ou igual a)
+- \>= (maior ou igual a)
+
+**Exemplo prático:** Verificar se uma data de pagamento está atrasada em comparação com a data atual.
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func isPaymentOverdue(dueDate, currentDate time.Time) bool {
+	return currentDate.After(dueDate) // Retorna true se a data atual for depois da data de vencimento
+}
+
+func main() {
+	dueDate := time.Date(2024, time.April, 10, 0, 0, 0, 0, time.UTC)
+	currentDate := time.Now()
+
+	if isPaymentOverdue(dueDate, currentDate) {
+		fmt.Println("Vencido")
+	} else {
+		fmt.Println("A Vencer")
+	}
+}
+```
+
+### Operadores de Atribuição
+
+Os operadores de atribuição em Go são usados para definir ou modificar o valor de uma variável. Eles incluem:
+
+- = (atribuição simples)
+- +=, -=, \*=, /=, %= (atribuição com operação)
+
+**Exemplo prático:** Atualizar o saldo de uma conta após um pagamento.
+
+```go
+package main
+
+import "fmt"
+
+func updateBalance(balance *float64, payment float64) {
+	*balance -= payment // Subtrai o pagamento do saldo
+}
+
+func main() {
+	var balance float64 = 10000
+	var payment float64 = 5000
+
+	fmt.Printf("Balaço atual: R$ %.2f\r\n", balance)
+	fmt.Printf("Pagamento: R$ %.2f\r\n", payment)
+
+	updateBalance(&balance, payment)
+
+	fmt.Printf("Balaço atualizado: R$ %.2f\r\n", balance)
+}
+```
+
+### Operadores Lógicos
+
+Os operadores lógicos permitem a combinação de valores booleanos. São eles:
+
+- && (E lógico)
+- \|\| (OU lógico)
+- ! (NÃO lógico)
+
+**Exemplo prático:** Determinar se uma transação deve ser processada, com base no status da conta e no saldo disponível.
+
+```go
+package main
+
+import "fmt"
+
+func shouldProcessTransaction(isAccountActive bool, hasSufficientFunds bool) bool {
+	return isAccountActive && hasSufficientFunds // Processa apenas se a conta está ativa e tem fundos suficientes
+}
+
+func main() {
+	var isAccountActive bool = false
+	var hasSufficientFunds bool = true
+
+	if shouldProcessTransaction(isAccountActive, hasSufficientFunds) {
+		fmt.Println("Operação processada")
+	} else if !isAccountActive {
+		fmt.Println("A conta está inativa")
+	} else if !hasSufficientFunds {
+		fmt.Println("Fundos insuficientes")
+	}
+}
+```
+
+### Operadores Unários
+
+Operadores unários em Go operam em um único operando. Eles incluem:
+
+- +, - (operadores de sinal)
+- !, ^ (negativo lógico e bitwise NOT)
+- \*, & (operadores de ponteiros para dereferência e endereço)
+
+**Exemplo prático:** Negar o valor de uma quantia para registrar um estorno.
+
+```go
+package main
+
+import "fmt"
+
+func negateAmount(amount float64) float64 {
+	return -amount // Muda o sinal do valor para indicar um estorno
+}
+
+func main() {
+	var amount float64 = 120
+
+	fmt.Printf("Sinal invertido: %.2f", negateAmount(amount))
+}
+```
+
+### Structs
+
+#### Declarando structs com inferência de tipos
+
+Structs são tipos de dados compostos em Go que agrupam variáveis relacionadas. Ao usar :=, o tipo da struct é inferido pelo compilador com base nos valores atribuídos.
+
+**Exemplo prático:**
+
+```go
+package main
+
+import "fmt"
+
+type Transaction struct {
+	Amount   float64
+	Category string
+}
+
+func main() {
+	transaction := Transaction{100.0, "Revenue"}
+	fmt.Println(transaction) // Mostra a transação com amount 100 e category Revenue
+}
+```
+
+#### Declarando structs sem ter todos os valores
+
+Em Go, você pode criar uma instância de uma struct sem fornecer valores para todos os campos. Isso é útil quando você deseja inicializar apenas certos campos com valores.
+
+**Exemplo prático:**
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type Payment struct {
+	Amount   float64
+	Date     time.Time
+	Receiver string
+}
+
+func main() {
+	payment := Payment{Amount: 150.0} // Só o Amount é inicializado
+	fmt.Println(payment)              // Mostra a estrutura de Payment com apenas o Amount definido
+}
+```
+
+### Structs dentro de structs
+
+Structs podem ser aninhadas dentro de outras para criar estruturas de dados mais complexas.
+
+**Exemplo prático:**
+
+```go
+package main
+
+import "fmt"
+
+type Invoice struct {
+	ID           string
+	Transactions []Transaction // Lista de transações na fatura
+}
+
+type Transaction struct {
+	Amount   float64
+	Category string
+}
+
+func main() {
+	t1 := Transaction{100.00, "Revenue"}
+	t2 := Transaction{200.00, "Subscription"}
+
+	transactions := []Transaction{t1, t2}
+
+	invoice := Invoice{"123456789", transactions}
+
+	fmt.Println(invoice)
+}
+```
+
+### Herança
+
+Embora Go não suporte herança direta, você pode usar composição para alcançar uma funcionalidade similar, incorporando uma struct em outra.
+
+**Exemplo prático:**
+
+```go
+package main
+
+import "fmt"
+
+type BaseAccount struct {
+	AccountNumber string
+	Balance       float64
+}
+
+type CheckingAccount struct {
+	BaseAccount    // Composição: BaseAccount é incorporada em CheckingAccount
+	OverdraftLimit float64
+}
+
+func main() {
+	baseAccount := BaseAccount{"AXZ", 123.45}
+	checkingAccount := CheckingAccount{baseAccount, 456.78}
+
+	fmt.Println(checkingAccount)
+}
+```
+
+### Ponteiros
+
+Ponteiros em Go são usados para referenciar diretamente a memória onde um valor está armazenado. Eles são essenciais para operações de baixo nível e para manipular grandes estruturas de dados sem copiar valores.
+
+**Exemplo prático:** Alterar o saldo de uma conta diretamente usando ponteiros.
+
+```go
+package main
+
+import "fmt"
+
+func updateBalance(balance *float64, payment float64) {
+	*balance -= payment // Subtrai o pagamento do saldo
+}
+
+func main() {
+	balance := 2000.0
+	updateBalance(&balance, 150.0) // Passa o endereço de balance para a função
+	fmt.Println(balance)           // Mostra o saldo atualizado
+}
+```
+
+### Exercícios de Fixação
+
 ## Referências
 
 - [H41stur: gogogo](https://github.com/h41stur/gogogo)
 - [Golang: Documentation](https://tip.golang.org/doc/)
+
+  {% include embed/youtube.html id='6-49l--smnc' %}

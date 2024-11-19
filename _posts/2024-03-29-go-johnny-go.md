@@ -813,6 +813,264 @@ func main() {
 
 ### Exercícios de Fixação
 
+## Aula 4: Marty McFly
+
+### Arrays em Go
+
+Arrays em Go são coleções de elementos do mesmo tipo com tamanho fixo. No contexto de um módulo financeiro de um ERP, vamos usar um array para armazenar os códigos de transações financeiras.
+
+**Inserindo dados em um array:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var transactionCodes [5]int
+    transactionCodes[0] = 101
+    transactionCodes[1] = 102
+    transactionCodes[2] = 103
+    transactionCodes[3] = 104
+    transactionCodes[4] = 105
+
+    fmt.Println(transactionCodes)
+}
+```
+
+**Consultando dados em um array:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactionCodes := [5]int{101, 102, 103, 104, 105}
+
+    // Acessando o terceiro código de transação
+    fmt.Println("Terceiro código de transação:", transactionCodes[2])
+}
+```
+
+**Excluindo dados em um array:**
+
+Arrays em Go têm um tamanho fixo, então não é possível "excluir" um elemento diretamente. Podemos, no entanto, zerar um elemento ou reorganizar o array.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactionCodes := [5]int{101, 102, 103, 104, 105}
+
+    // Zerando o terceiro código de transação
+    transactionCodes[2] = 0
+
+    fmt.Println(transactionCodes)
+}
+```
+
+### Slices
+
+Slices são abstrações dinâmicas de arrays que podem mudar de tamanho. Slices são ideais para listas de elementos que variam durante a execução do programa, como uma lista de transações pendentes em um módulo financeiro.
+
+**Inserindo dados em um slice:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactions := []string{}
+
+    // Adicionando transações
+    transactions = append(transactions, "Transação 1")
+    transactions = append(transactions, "Transação 2")
+
+    fmt.Println(transactions)
+}
+```
+
+**Consultando dados em um slice:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactions := []string{"Transação 1", "Transação 2", "Transação 3"}
+
+    // Acessando a segunda transação
+    fmt.Println("Segunda transação:", transactions[1])
+}
+```
+
+**Excluindo dados em um slice:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactions := []string{"Transação 1", "Transação 2", "Transação 3"}
+
+    // Removendo a segunda transação
+    transactions = append(transactions[:1], transactions[2:]...)
+
+    fmt.Println(transactions)
+}
+```
+
+### Maps
+
+Maps são estruturas que armazenam dados em pares chave-valor. Em um módulo financeiro, um map pode ser usado para associar o ID de uma transação ao seu status.
+
+**Inserindo dados em um map:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	transactionStatus := make(map[int]string)
+
+	// Adicionando status de transações
+	transactionStatus[1] = "Pendente"
+	transactionStatus[2] = "Concluído"
+	transactionStatus[3] = "Falhou"
+
+	fmt.Println(transactionStatus)
+}
+```
+
+**Consultando dados em um map:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactionStatus := map[int]string{
+        1: "Pendente",
+        2: "Concluído",
+        3: "Falhou",
+    }
+
+    // Verificando o status da transação 2
+    fmt.Println("Status da transação 2:", transactionStatus[2])
+}
+```
+
+**Excluindo dados em um map:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    transactionStatus := map[int]string{
+        1: "Pendente",
+        2: "Concluído",
+        3: "Falhou",
+    }
+
+    // Removendo uma transação
+    delete(transactionStatus, 2)
+
+    fmt.Println(transactionStatus)
+}
+```
+
+### Estruturas de Controle
+
+Estruturas de controle permitem direcionar o fluxo de execução do código. Aqui estão alguns exemplos básicos usando condições e seleção:
+
+Uso de if, else if, else, e if com inicialização:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    balance := 5000
+    withdrawAmount := 6000
+
+    if balance < withdrawAmount {
+        fmt.Println("Saldo insuficiente para saque")
+    } else if balance == withdrawAmount {
+        fmt.Println("Saque integral do saldo")
+    } else {
+        fmt.Println("Saque realizado com sucesso")
+    }
+
+    // Exemplo com inicialização
+    if newTransaction := 700; newTransaction > 500 {
+        fmt.Println("Transação importante")
+    }
+}
+```
+
+Uso de switch:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    statusCode := 2
+
+    switch statusCode {
+    case 1:
+        fmt.Println("Transação pendente")
+    case 2:
+        fmt.Println("Transação concluída")
+    case 3:
+        fmt.Println("Transação falhou")
+    default:
+        fmt.Println("Código de status desconhecido")
+    }
+}
+```
+
+## Aula 5:
+
+### Loops
+
+Laço for semelhante a while
+
+Em Go, o laço for pode ser usado como um laço while de outras linguagens, omitindo-se a inicialização e o incremento:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    balance := 1000
+    goal := 5000
+
+    for balance < goal {
+        balance += 500
+        fmt.Println("Saldo atualizado:", balance)
+    }
+}
+```
+
+Este exemplo simula a acumulação de saldo até atingir um valor objetivo, muito comum em módulos financeiros para verificar metas de economia ou investimento.
+
+**Laço for com cláusula range**
+A cláusula range permite iterar sobre slices, arrays e maps. Vamos usar range para processar transações financeiras:
+
 ## Referências
 
 - [H41stur: gogogo](https://github.com/h41stur/gogogo)

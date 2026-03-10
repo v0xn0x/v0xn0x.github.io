@@ -1,83 +1,108 @@
-<!-- markdownlint-disable-next-line -->
-<div align="center">
+# v0xn0x.com
 
-  <!-- markdownlint-disable-next-line -->
-  # Chirpy Jekyll Theme
+Blog pessoal sobre cybersecurity, construido com [Jekyll](https://jekyllrb.com/) e o tema [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) (v6.5.2).
 
-  A minimal, responsive, and feature-rich Jekyll theme for technical writing.
+## Requisitos
 
-  [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy?color=brightgreen)][gem]&nbsp;
-  [![CI](https://github.com/cotes2020/jekyll-theme-chirpy/actions/workflows/ci.yml/badge.svg?branch=master&event=push)][ci]&nbsp;
-  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4e556876a3c54d5e8f2d2857c4f43894)][codacy]&nbsp;
-  [![GitHub license](https://img.shields.io/github/license/cotes2020/jekyll-theme-chirpy.svg)][license]&nbsp;
-  [![996.icu](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg)](https://996.icu)
+- [Ruby](https://www.ruby-lang.org/) >= 3.0
+- [Bundler](https://bundler.io/)
+- [Node.js](https://nodejs.org/) e npm
+- [Git](https://git-scm.com/)
 
-  [**Live Demo** →][demo]
+## Executando localmente
 
-  [![Devices Mockup](https://chirpy-img.netlify.app/commons/devices-mockup.png)][demo]
+1. Instale as dependencias:
 
-</div>
+```bash
+bundle install
+npm install
+```
 
-## Features
+2. Compile os assets JavaScript:
 
-- Dark / Light Theme Mode
-- Localized UI language
-- Pinned Posts on Home Page
-- Hierarchical Categories
-- Trending Tags
-- Table of Contents
-- Last Modified Date
-- Syntax Highlighting
-- Mathematical Expressions
-- Mermaid Diagrams & Flowcharts
-- Dark / Light Mode Images
-- Embed Videos
-- Disqus / Giscus / Utterances Comments
-- Built-in Search
-- Atom Feeds
-- PWA
-- Google Analytics / GoatCounter
-- SEO & Performance Optimization
+```bash
+npm run build
+```
 
-## Documentation
+3. Inicie o servidor de desenvolvimento:
 
-To learn how to use, develop, and upgrade the project, please refer to the [Wiki][wiki].
+```bash
+bash tools/run
+```
 
-## Contributing
+O site estara disponivel em `http://localhost:4000` com live reload ativado.
 
-Contributions (_pull requests_, _issues_, and _discussions_) are what make the open-source community such an amazing place
-to learn, inspire, and create. Any contributions you make are greatly appreciated.
-For details, see the "[Contributing Guidelines][contribute-guide]".
+### Outros comandos uteis
 
-## Credits
+| Comando | Descricao |
+|---|---|
+| `bash tools/test` | Build de producao + validacao com htmlproofer |
+| `npm test` | Lint dos arquivos SCSS |
+| `npm run fixlint` | Corrige problemas de lint automaticamente |
 
-### Contributors
+## Criando posts
 
-Thanks to [all the contributors][contributors] involved in the development of the project!
+### 1. Crie o arquivo
 
-[![all-contributors](https://contrib.rocks/image?repo=cotes2020/jekyll-theme-chirpy&columns=16)][contributors]
-<sub> —— Made with [contrib.rocks](https://contrib.rocks)</sub>
+Crie um arquivo Markdown na pasta `_posts/` seguindo o padrao de nomenclatura:
 
-### Third-Party Assets
+```
+_posts/YYYY-MM-DD-titulo-do-post.md
+```
 
-This project is built on the [Jekyll][jekyllrb] ecosystem and some [great libraries][lib], and is developed using [VS Code][vscode] as well as tools provided by [JetBrains][jetbrains] under a non-commercial open-source software license.
+Exemplo: `_posts/2024-05-15-analise-de-malware.md`
 
-The avatar and favicon for the project's website are from [ClipartMAX][clipartmax].
+### 2. Adicione o front matter
 
-## License
+Todo post deve comecar com um bloco de front matter YAML:
 
-This project is published under [MIT License][license].
+```yaml
+---
+title: Titulo do Post
+author: v0xn0x
+date: 2024-05-15 10:00:00 -0300
+categories: [CATEGORIA, SUBCATEGORIA]
+tags: [TAG1, TAG2]
+---
+```
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[ci]: https://github.com/cotes2020/jekyll-theme-chirpy/actions/workflows/ci.yml?query=event%3Apush+branch%3Amaster
-[codacy]: https://app.codacy.com/gh/cotes2020/jekyll-theme-chirpy/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
-[license]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE
-[jekyllrb]: https://jekyllrb.com/
-[clipartmax]: https://www.clipartmax.com/middle/m2i8b1m2K9Z5m2K9_ant-clipart-childrens-ant-cute/
-[demo]: https://cotes2020.github.io/chirpy-demo/
-[wiki]: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
-[contribute-guide]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/docs/CONTRIBUTING.md
-[contributors]: https://github.com/cotes2020/jekyll-theme-chirpy/graphs/contributors
-[lib]: https://github.com/cotes2020/chirpy-static-assets
-[vscode]: https://code.visualstudio.com/
-[jetbrains]: https://www.jetbrains.com/?from=jekyll-theme-chirpy
+#### Campos opcionais
+
+| Campo | Descricao |
+|---|---|
+| `pin: true` | Fixa o post na pagina inicial |
+| `math: true` | Habilita renderizacao de expressoes matematicas |
+| `mermaid: true` | Habilita diagramas Mermaid |
+| `image.path` | Caminho da imagem de capa (ex: `/img/imagem.png`) |
+| `image.alt` | Texto alternativo da imagem de capa |
+| `toc: false` | Desabilita o indice lateral (habilitado por padrao) |
+| `comments: false` | Desabilita comentarios no post |
+
+### 3. Escreva o conteudo
+
+Apos o front matter, escreva o conteudo em Markdown. O tema suporta:
+
+- Blocos de codigo com syntax highlighting
+- Imagens: `![descricao](/img/nome-da-imagem.png)`
+- Expressoes matematicas (com `math: true`)
+- Diagramas Mermaid (com `mermaid: true`)
+
+### 4. Imagens
+
+Coloque as imagens dos posts na pasta `img/` e referencie com caminho absoluto:
+
+```markdown
+![descricao](/img/minha-imagem.png)
+```
+
+### 5. Visualize o post
+
+Com o servidor local rodando (`bash tools/run`), o post aparecera automaticamente em `http://localhost:4000`.
+
+## Deploy
+
+O deploy e automatico via GitHub Actions. Ao fazer push para a branch `master`, o workflow `.github/workflows/pages-deploy.yml` compila o site e publica no GitHub Pages.
+
+## Licenca
+
+Este projeto utiliza a [MIT License](LICENSE).

@@ -4,6 +4,9 @@ author: v0xn0x
 date: 2026-03-11 10:00:00 -0300
 categories: [OPINIAO, IA]
 tags: [IA, ENGENHARIA DE SOFTWARE]
+image:
+  path: /img/202603111340.png
+  alt: ""
 ---
 
 ## A verdade é dura

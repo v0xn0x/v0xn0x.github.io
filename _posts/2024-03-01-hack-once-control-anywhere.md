@@ -4,7 +4,7 @@ author: v0xn0x
 date: 2024-03-01 16:00:00 -0300
 categories: [ESTUDO, C2]
 tags: [C2, SHELL REVERSO]
-pin: true
+pin: false
 math: true
 mermaid: true
 image:

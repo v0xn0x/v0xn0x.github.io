@@ -100,6 +100,10 @@ h1 + .post-meta {
   } /* .share-wrapper */
 }
 
+#tail-wrapper > .post-comments {
+  margin-top: 1.5rem;
+}
+
 .share-mastodon {
   /* See: https://github.com/justinribeiro/share-to-mastodon#properties */
   --wc-stm-font-family: $font-family-base;

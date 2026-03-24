@@ -1,5 +1,5 @@
 ---
-title: O seu código tem brio?
+title: O seu código merece existir?
 author: v0xn0x
 date: 2026-03-23 15:43:00 -0300
 categories: [SEGURANCA, AUDITORIA, OPINIAO]

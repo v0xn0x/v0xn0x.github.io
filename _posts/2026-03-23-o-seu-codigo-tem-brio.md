@@ -70,7 +70,7 @@ Vou detalhar aqui os cinco findings que mais me ensinaram, por gravidade, por pr
 
 ---
 
-## O Pecado Original
+## Atire a primeira pedra
 
 **CRITICAL — CVSS 8.6 — OWASP A07**
 
@@ -221,7 +221,7 @@ A correção teórica nem sempre é a correção prática. A perfeição que que
 
 ---
 
-## O Balanço
+## Conclusão
 
 Dos 14 findings, 11 foram corrigidos e 3 foram aceitos como risco consciente e documentado. Todos os CRITICAL e HIGH foram resolvidos. Os riscos aceitos não são "ignorados", são decisões com justificativa técnica, registradas e revisáveis. O relatório completo com cada finding, evidência, CVSS e status está [aqui](/extras/audit-2026-03-19).
 
@@ -237,7 +237,7 @@ A pergunta agora não é mais sobre o meu código. É sobre o seu.
 
 ---
 
-> **Nota técnica:** Este post foi escrito durante o processo de auditoria, não depois. Cada seção foi documentada no momento da correção para capturar as decisões em tempo real.
-> **Ferramentas:** Claude Code, Laravel 11, Docker, PostgreSQL 16.
-> **Relatório completo:** [14 findings — evidências, CVSS, status e remediações](/extras/audit-2026-03-19)
-> **Prompt da auditoria:** [Documento estruturado usado no Claude Code](/extras/promp-audit-2026-03-19)
+> - **Nota técnica:** Este post foi escrito durante o processo de auditoria, não depois. Cada seção foi documentada no momento da correção para capturar as decisões em tempo real.
+> - **Ferramentas:** Claude Code, Laravel 11, Docker, PostgreSQL 16.
+> - **Relatório completo:** [14 findings: evidências, CVSS, status e remediações](/extras/audit-2026-03-19)
+> - **Prompt da auditoria:** [Documento estruturado usado no Claude Code](/extras/promp-audit-2026-03-19)

@@ -2,8 +2,8 @@
 title: O seu código tem brio?
 author: v0xn0x
 date: 2026-03-23 15:43:00 -0300
-categories: 
-tags: 
+categories: [SEGURANCA, AUDITORIA, OPINIAO]
+tags: [AUDITORIA, LARAVEL, DOCKER, IA, OWASP]
 pin: false
 math: true
 mermaid: true

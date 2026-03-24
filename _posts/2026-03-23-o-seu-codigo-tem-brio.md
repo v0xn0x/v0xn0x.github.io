@@ -15,11 +15,11 @@ image:
 
 Você acha que o seu código é seguro? Você se importa com isso?
 
-O que você vai ler aqui não é um relatório técnico asséptico para um burocrata ver. É a crônica de uma humilhação necessária. Eu tenho um SaaS Laravel "pronto". Cinquenta mil linhas de código. Multitenancy, Docker, PostgreSQL - o pacote completo.
+O que você vai ler aqui não é um relatório técnico asséptico para um burocrata ver. Este é o relato de uma humilhação necessária. Eu tenho um SaaS Laravel "pronto". Cinquenta mil linhas de código. Multitenancy, Docker, PostgreSQL - o pacote completo.
 
 Eu também não gosto de admitir, mas auditar é um trabalho árduo que precisa ser feito. E com o advento das IAs, não há mais desculpas para negligenciar o que, nesse caso, nem foi tão árduo assim.
 
-Nessa jornada eu utilizei o Claude Code (Modelo Opus 4.6) para auditar o meu código. E em uma única sessão, a máquina fez o que nós, humanos, evitamos por puro ego, preguiça ou falta de conhecimento: ela olhou para o código sem julgamento prévio e devolveu 13 findings. Sem falso positivo. Sem achismo.
+Nessa jornada eu utilizei o Claude Code (Modelo Opus 4.6) para auditar o meu código. E em uma única sessão, a máquina fez o que nós, humanos, evitamos por puro ego, preguiça ou falta de conhecimento: ela olhou para o código sem julgamento prévio e devolveu 14 findings. Sem falsos positivo. Sem achismo.
 
 A gente jura que o `.env` local está seguro, que o Redis "ninguém vai achar", que aquele Xdebug na imagem de produção é "só por um momento". Eu jurava tudo isso.
 
@@ -27,7 +27,7 @@ Este texto é sobre o brio de quem decide parar de mentir para si mesmo. Vou mos
 
 ## O Programa
 
-A aplicação é um gerenciador de vulnerabilidades, um SaaS multi-tenant construído com Laravel 11, PostgreSQL 16, Docker e uma arquitetura que eu já considerava sólida. E foi o seu objetivo que me obrigado a realizar a auditoria: o mínimo que se espera de um programa que gerencia vulnerabilidades é que ele próprio não seja a vulnerabilidade a ser gerida.
+A aplicação é um gerenciador de vulnerabilidades, um SaaS multi-tenant construído com Laravel 11, PostgreSQL 16, Docker e uma arquitetura que eu já considerava sólida. E foi o seu objetivo que me obrigou a realizar a auditoria: o mínimo que se espera de um programa que gerencia vulnerabilidades é que ele próprio não seja a vulnerabilidade a ser gerida.
 
 Mas antes de mostrar os problemas, eu vou destacar o que já estava certo. A auditoria confirmou 22 padrões seguros no projeto, e isso importa tanto quanto os findings:
 
@@ -40,7 +40,7 @@ Mas antes de mostrar os problemas, eu vou destacar o que já estava certo. A aud
 - **Row-Level Security** no PostgreSQL para isolamento de dados por tenant
 - **UUIDs** em vez de IDs sequenciais em todos os models
 
-Saber que nem tudo é pranto e ranger de dentes, me deu confiança para encarar o que veio pela frente. Não se trata de um código amador, se trata de um código maduro com brechas que só aparecem quando alguém tem coragem de procurar.
+Saber que nem tudo é pranto e ranger de dentes me deu confiança para encarar o que veio pela frente. Não se trata de um código amador, se trata de um código maduro com brechas que só aparecem quando alguém tem coragem de procurar.
 
 ## Como a Auditoria Funcionou
 
@@ -200,7 +200,7 @@ O campo `role` estava no `$fillable` do model `Tenant\User`. Em teoria: se um co
 
 Minha primeira reação foi remover do `$fillable`. Fiz a alteração e veio o caos: `UserFactory` parou de funcionar, seeders quebraram, testes automatizados começaram a berrar. Remover o campo exigiria refatorar meses de infraestrutura de testes.
 
-O próprio Claude Code passou por isso. Ele propôs a remoção, testou, detectou a quebra na test suite e pivotou sozinho para defense-in-depth. Funcionou, mas foi um processo iterativo que exigiu minha supervisão, IA ainda precisa de um humano que saiba quando aceitar o pivô e quando insistir na solução ideal.
+O próprio Claude Code passou por isso. Ele propôs a remoção, testou, detectou a quebra na test suite e pivotou sozinho para defense-in-depth. Funcionou, mas foi um processo iterativo que exigiu minha supervisão, a IA ainda precisa de um humano que saiba quando aceitar o pivô e quando insistir na solução ideal.
 
 A solução: em vez de lutar contra meu próprio sistema, blindei todas as camadas ao redor. Para o atacante escalar privilégios, ele teria que passar por middleware que exige role admin, policy que verifica permissão, FormRequest que filtra o input, e o service que agora atribui a role explicitamente:
 
@@ -225,7 +225,7 @@ A correção teórica nem sempre é a correção prática. A perfeição que que
 
 Dos 14 findings, 11 foram corrigidos e 3 foram aceitos como risco consciente e documentado. Todos os CRITICAL e HIGH foram resolvidos. Os riscos aceitos não são "ignorados", são decisões com justificativa técnica, registradas e revisáveis. O relatório completo com cada finding, evidência, CVSS e status está [aqui](/extras/audit-2026-03-19).
 
-A diferença entre um scanner SAST e o que foi feito aqui se resume a uma palavra: contexto. O finding do `Tenant::all()` no checkout não é um padrão reconhecível por regra estática, é uma consequência arquitetural que só faz sentido quando você entende o ambiente multi-tenant com database-per-tenant e endpoint público. Zero falsos positivos em 13 findings é um número que qualquer ferramenta tradicional levaria semanas para atingir num projeto Laravel complexo.
+A diferença entre um scanner SAST e o que foi feito aqui se resume a uma palavra: contexto. O finding do `Tenant::all()` no checkout não é um padrão reconhecível por regra estática, é uma consequência arquitetural que só faz sentido quando você entende o ambiente multi-tenant com database-per-tenant e endpoint público. Zero falsos positivos em 14 findings é um número que qualquer ferramenta tradicional levaria semanas para atingir num projeto Laravel complexo.
 
 Ao mesmo tempo, a IA não é infalível. O pivô no finding do `$fillable` exigiu supervisão humana. Os riscos aceitos exigiram julgamento humano. A auditoria com IA não substitui o instinto, ela reduz o tempo entre "código escrito" e "código seguro" e te força a documentar cada decisão em vez de empurrar com a barriga.
 
@@ -239,5 +239,5 @@ A pergunta agora não é mais sobre o meu código. É sobre o seu.
 
 > **Nota técnica:** Este post foi escrito durante o processo de auditoria, não depois. Cada seção foi documentada no momento da correção para capturar as decisões em tempo real.
 > **Ferramentas:** Claude Code, Laravel 11, Docker, PostgreSQL 16.
-> **Relatório completo:** [13 findings — evidências, CVSS, status e remediações](/extras/audit-2026-03-19)
+> **Relatório completo:** [14 findings — evidências, CVSS, status e remediações](/extras/audit-2026-03-19)
 > **Prompt da auditoria:** [Documento estruturado usado no Claude Code](/extras/promp-audit-2026-03-19)

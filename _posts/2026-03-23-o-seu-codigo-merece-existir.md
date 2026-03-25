@@ -15,11 +15,11 @@ image:
 
 Você acha que o seu código é seguro? Você se importa com isso?
 
-O que você vai ler aqui não é um relatório técnico asséptico para um burocrata ver. Este é o relato de uma humilhação necessária. Eu tenho um SaaS Laravel "pronto". Cinquenta mil linhas de código. Multitenancy, Docker, PostgreSQL - o pacote completo.
+O que você vai ler aqui não é um relatório técnico asséptico para um burocrata ver. Este é o relato de uma humilhação necessária. Recentemente eu finalizei o MVP de um SaaS. Cinquenta mil linhas de código. Multitenancy, Docker, PostgreSQL.
 
-Eu também não gosto de admitir, mas auditar é um trabalho árduo que precisa ser feito. E com o advento das IAs, não há mais desculpas para negligenciar o que, nesse caso, nem foi tão árduo assim.
+E foi só quando o produto ficou de pé que eu encarei uma verdade incômoda: auditar o próprio código é o tipo de trabalho que a gente adia até não poder mais. Dá trabalho, fere o ego e quase sempre expõe coisas que a gente preferia não ver. A diferença é que, hoje, com IA, ficou muito mais difícil inventar desculpa.
 
-Nessa jornada eu utilizei o Claude Code (Modelo Opus 4.6) para auditar o meu código. E em uma única sessão, a máquina fez o que nós, humanos, evitamos por puro ego, preguiça ou falta de conhecimento: ela olhou para o código sem julgamento prévio e devolveu 14 findings. Sem falsos positivo. Sem achismo.
+Nessa jornada eu utilizei o Claude Code (Modelo Opus 4.6) para auditar o meu código. E em uma única sessão, a máquina fez o que nós, humanos, evitamos por puro ego, preguiça ou falta de conhecimento: ela olhou para o código sem julgamento e devolveu 14 findings. Sem falsos positivo. Sem achismo.
 
 A gente jura que o `.env` local está seguro, que o Redis "ninguém vai achar", que aquele Xdebug na imagem de produção é "só por um momento". Eu jurava tudo isso.
 

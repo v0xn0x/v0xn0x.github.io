@@ -5,7 +5,7 @@ date: 2026-05-24 10:00:00 -0300
 categories: [OPINIAO, ARQUITETURA]
 tags: [DOTNET, ASPNET, CSHARP, ARQUITETURA, SISTEMAS CRITICOS]
 image:
-  path: /img/dotnet-governance-cover.svg
+  path: /img/dotnet-governance-cover.png
   alt: ".NET Arquitetura e Governança"
 ---
 
